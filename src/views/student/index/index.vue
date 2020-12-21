@@ -150,7 +150,7 @@ import {
   updateStudent,
   deteleStudent,
   querStudent,
-  donwloadStudentInfo
+  donwloadStudentInfo,
 } from "@/server/student";
 import { defineComponent, inject } from "@vue/composition-api";
 export default defineComponent({
@@ -167,7 +167,7 @@ export default defineComponent({
         name: "",
         class: "",
         interest: "",
-        gender: ""
+        gender: "",
       },
       params: {
         pageNum: 1,
@@ -175,13 +175,13 @@ export default defineComponent({
         name: "",
         class: "",
         interest: "",
-        gender: ""
+        gender: "",
       },
       total: 0,
       rules: {
         name: [{ required: false, message: "请输入名字", trigger: "blur" }],
-        class: [{ required: true, message: "请输入班级", trigger: "blur" }]
-      }
+        class: [{ required: true, message: "请输入班级", trigger: "blur" }],
+      },
     };
   },
   created() {
@@ -190,8 +190,8 @@ export default defineComponent({
   methods: {
     formatterGender(row, column, cellValue) {
       const maps = {
-        "0": "女",
-        "1": "男"
+        0: "女",
+        1: "男",
       };
       return maps[cellValue];
     },
@@ -210,8 +210,8 @@ export default defineComponent({
       this.params.pageNum = value;
       this.querStudent();
     },
-    async deteleStudent({ _id: id }) {
-      const [error] = await deteleStudent({ id });
+    async deteleStudent({ _id }) {
+      const [error] = await deteleStudent({ _id });
       if (error) {
         console.log(error);
       } else {
@@ -258,13 +258,12 @@ export default defineComponent({
     },
     setForm(row) {
       const keys = ["name", "class", "interest", "gender"];
-      keys.forEach(key => {
+      keys.forEach((key) => {
         this.form[key] = row[key];
       });
-      this.form.id = row._id;
     },
     submitForm(formName) {
-      this.$refs[formName].validate(async valid => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
           if (this.isCreated) {
             await this.createStudent();
@@ -303,8 +302,8 @@ export default defineComponent({
       } else {
         this.createBlob(data.data.data, "测试文件.xls");
       }
-    }
-  }
+    },
+  },
 });
 </script>
 

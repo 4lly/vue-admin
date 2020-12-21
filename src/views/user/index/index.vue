@@ -184,8 +184,8 @@ export default {
       this.params.pageNum = value;
       this.queryUser();
     },
-    async deteleUser({ _id: id }) {
-      const [error, data] = await deteleUser({ id });
+    async deteleUser({ _id }) {
+      const [error, data] = await deteleUser({ _id });
       if (error) {
         console.log(error);
       } else {
@@ -258,7 +258,6 @@ export default {
       keys.forEach(key => {
         this.form[key] = row[key];
       });
-      this.form.id = row._id;
     },
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
